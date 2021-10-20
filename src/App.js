@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import { Switch } from "react-router";
+import Home from "./pages/home";
+import {Register} from "./pages/register";
+import {
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
 
-function App() {
-  return (
+function App()
+{
+  const [title, updateTitle] = useState(null);
+  const [errorMessage, updateErrorMessage] = useState(null);
+  return(
+    // <Home />
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          <Switch>
+            <Route path="/" exact={true}>
+              <Register showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+            <Route path="/register">
+              <Register showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+            <Route path="/login">
+              <Home showError={updateErrorMessage} updateTitle={updateTitle}/>
+            </Route>
+          </Switch>
+          {/* <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/> */}
     </div>
+    </Router>
   );
+
 }
 
 export default App;
